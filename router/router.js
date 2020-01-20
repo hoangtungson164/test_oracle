@@ -10,8 +10,9 @@ var AuthController = require('../controller/AuthController');
 var BankController = require('../controller/BankController')
 
 router.get('/banks', BankController.getAllBank);
-router.get('/banks/:id', BankController.getAllConsensus);
+router.get('/banks/:id/consent', BankController.getAllConsensus);
 router.post('/login', AuthController.login);
-router.get('/reports', BankController.getAllReport);
+router.get('/banks/:id/report', BankController.getAllReport);
+router.post('/indi', BankController.postIndi_info);
 
 module.exports = router

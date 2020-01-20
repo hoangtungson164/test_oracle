@@ -1,16 +1,20 @@
 const oracledb = require('oracledb');
 const dbconfig = require('../config/auth');
 
+
 async function queryOracel(res, sql, param, option) {
     let connection;
     try {
         connection = await oracledb.getConnection(dbconfig);
         result = await connection.execute(
             sql, param, option);
-        res.status(200).send(result.rows);
-        return result.rows;
+            if (!(result.rows === undefined)) {
+                res.status(200).send(result.rows)
+            } else {
+                res.status(200).send(result);
+            }
     } catch (err) {
-        console.log(err);
+        res.send({error: 1});
     } finally {
         if (connection) {
             try {
