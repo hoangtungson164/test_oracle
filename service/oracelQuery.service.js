@@ -14,13 +14,13 @@ async function queryOracel(res, sql, param, option) {
                 res.status(200).send(result);
             }
     } catch (err) {
-        res.send({error: 1});
+        res.status(500).send("Problem with server");
     } finally {
         if (connection) {
             try {
                 await connection.close();
             } catch (error) {
-                console.log(error);
+                res.status(500).send("Problem with close connection");
             }
         }
     }

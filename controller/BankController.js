@@ -15,7 +15,7 @@ exports.getAllBank = function (req, res) {
 
 exports.getAllConsensus = function (req, res) {
     var SELECT = "SELECT TO_CHAR(COLLECTION), TO_CHAR(DATA_USING), TO_CHAR(PROVIDING) FROM TB_CONSENT_TYPE";
-    var WHERE = "WHERE CUST_GB = " + "'" + req.params.id + "'";
+    var WHERE = " WHERE CUST_GB = " + "'" + req.params.id + "'";
     var sql = SELECT + WHERE;
     oracleService.queryOracel(res, sql, params, optionSelect);
 }
