@@ -3,7 +3,7 @@ var config = {
 	database: {
 		host: '1.55.215.214',
 		user: 'root',
-		password: 'infocity12!@',
+		password: process.env.ORACLE_PASSWORD,
 		port: 3969,
 		database: 'scrap',
 		dialect: 'mysql',

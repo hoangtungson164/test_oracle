@@ -6,9 +6,9 @@ async function queryOracel(res, sql, param, option) {
     let connection;
     try {
         connection = await oracledb.getConnection(dbconfig);
-        result = await connection.execute(
+        let result = await connection.execute(
             sql, param, option);
-            if (!(result.rows === undefined)) {
+            if (result.rows !== undefined) {
                 res.status(200).send(result.rows)
             } else {
                 res.status(200).send(result);
