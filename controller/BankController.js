@@ -1,44 +1,56 @@
 const oracledb = require('oracledb');
 const oracleService = require('../service/oracelQuery.service');
 const optionAutoCommit = { autoCommit: true };
+const convertTime = require('../service/datecreate.service');
+const common_service = require('../service/common.service');
+
 var optionSelect = { outFormat: oracledb.OUT_FORMAT_OBJECT };
 var params = {}
 
 
 exports.getAllBank = function (req, res) {
-    var SELECT = "SELECT TB_ITCUST.CUST_GB, TB_ITCUST.CUST_CD, TB_ITCUST.CUST_NM_ENG FROM TB_ITCUST";
-    var JOIN = " JOIN TB_ITCTRT ON TB_ITCUST.CUST_CD = TB_ITCTRT.CUST_CD";
-    var WHERE = " WHERE TB_ITCTRT.GDS_CD = 'S1003'";
-    var sql = SELECT + JOIN + WHERE;
+    let SELECT = "SELECT TB_ITCUST.CUST_GB, TB_ITCUST.CUST_CD, TB_ITCUST.CUST_NM_ENG FROM TB_ITCUST";
+    let JOIN = " JOIN TB_ITCTRT ON TB_ITCUST.CUST_CD = TB_ITCTRT.CUST_CD";
+    let WHERE = " WHERE TB_ITCTRT.GDS_CD = 'S1003'";
+    let ORDER = " ORDER BY TB_ITCUST.CUST_NM_ENG";
+    let sql = SELECT + JOIN + WHERE + ORDER;
     oracleService.queryOracel(res, sql, params, optionSelect);
 };
 
 exports.getAllConsensus = function (req, res) {
-    var SELECT = "SELECT TO_CHAR(COLLECTION), TO_CHAR(DATA_USING), TO_CHAR(PROVIDING) FROM TB_CONSENT_TYPE";
-    var WHERE = " WHERE CUST_GB = " + "'" + req.params.id + "'";
-    var sql = SELECT + WHERE;
+    let SELECT = "SELECT TO_CHAR(COLLECTION), TO_CHAR(DATA_USING), TO_CHAR(PROVIDING) FROM TB_CONSENT_TYPE";
+    let WHERE = " WHERE CUST_GB = " + "'" + req.params.id + "'";
+    let sql = SELECT + WHERE;
     oracleService.queryOracel(res, sql, params, optionSelect);
 }
 
 exports.getAllReport = function (req, res) {
-    var SELECT = "SELECT*FROM TB_REPORT";
-    var JOIN = " JOIN TB_CUST_REPORT ON TB_REPORT.REPORT_CODE = TB_CUST_REPORT.REPORT_CODE";
-    var WHERE = " WHERE TB_CUST_REPORT.CUST_GB = " + "'" + req.params.id + "'";
-    var sql = SELECT + JOIN + WHERE; 
+    let SELECT = "SELECT*FROM TB_REPORT";
+    let JOIN = " JOIN TB_CUST_REPORT ON TB_REPORT.REPORT_CODE = TB_CUST_REPORT.REPORT_CODE";
+    let WHERE = " WHERE TB_CUST_REPORT.CUST_GB = " + "'" + req.params.id + "'";
+    let sql = SELECT + JOIN + WHERE;
     oracleService.queryOracel(res, sql, params, optionSelect);
 }
 
-exports.postIndi_info = function (req, res) {
-    var FULL_NAME = req.body.FULL_NAME;
-    var NATIONAL_ID = req.body.NATIONAL_ID;
-    var CONSENT_ID = req.body.CONSENT_ID;
-    var CUST_GB = req.body.CUST_GB;
-    var sql = "INSERT INTO TB_INDI_INFO VALUES (:FULL_NAME, :NATIONAL_ID, :CONSENT_ID, :CUST_GB)"
-    var params = {
-        FULL_NAME: {val: FULL_NAME}, 
-        NATIONAL_ID: {val: NATIONAL_ID}, 
-        CONSENT_ID: {val: CONSENT_ID}, 
-        CUST_GB: {val: CUST_GB}
-    };
+exports.postIndi_info = async function (req, res) {
+    let FULL_NAME = req.body.FULL_NAME;
+    let NATIONAL_ID = req.body.NATIONAL_ID;
+    let CUST_CD = req.body.CUST_CD;
+    let SYS_DTIM = convertTime.timeStamp();
+    let NICE_SSIN_ID;
+
+    await common_service.getSequence().then(resSeq => {
+        NICE_SSIN_ID = convertTime.timeStamp2() + resSeq[0].SEQ;
+    })
+
+    let sql = "INSERT INTO TB_SCRPLOG (LOGIN_ID, NATL_ID, SYS_DTIM, NICE_SSIN_ID, CUST_CD) VALUES (:LOGIN_ID, :NATL_ID, :SYS_DTIM, :NICE_SSIN_ID, :CUST_CD)"
+        params = {
+            LOGIN_ID: { val: FULL_NAME },
+            NATL_ID: { val: NATIONAL_ID },
+            SYS_DTIM: { val: SYS_DTIM },
+            NICE_SSIN_ID: { val: NICE_SSIN_ID },
+            CUST_CD: {val: CUST_CD}
+        };
+
     oracleService.queryOracel(res, sql, params, optionAutoCommit);
 }

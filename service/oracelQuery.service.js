@@ -14,7 +14,7 @@ async function queryOracel(res, sql, param, option) {
                 res.status(200).send(result);
             }
     } catch (err) {
-        res.status(500).send("Problem with server");
+        res.status(500).send(err);
     } finally {
         if (connection) {
             try {
