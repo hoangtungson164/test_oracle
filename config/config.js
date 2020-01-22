@@ -22,9 +22,9 @@ var config = {
 		host: '127.0.0.1',
 		port: '3200'
     },
-    secret: {
-        'secret': process.env.SECRET
-    }
+    authprefix: 'Bearer ',
+	jwtExpiresIn: 864000000000,
+	secret: process.env.SECRET,
 }
 
 module.exports = config;
