@@ -3,10 +3,10 @@ const oracleService = require('../service/oracelQuery.service');
 const optionAutoCommit = { autoCommit: true };
 const convertTime = require('../service/datecreate.service');
 const common_service = require('../service/common.service');
+const nicekey = require('../service/niceSessionKey.service')
 
 var optionSelect = { outFormat: oracledb.OUT_FORMAT_OBJECT };
 var params = {}
-
 
 exports.getAllBank = function (req, res) {
     let SELECT = "SELECT TB_ITCUST.CUST_GB, TB_ITCUST.CUST_CD, TB_ITCUST.CUST_NM_ENG FROM TB_ITCUST";
@@ -39,6 +39,8 @@ exports.postIndi_info = async function (req, res) {
     let SYS_DTIM = convertTime.timeStamp();
     let NICE_SSIN_ID;
 
+    let producCode = nicekey.niceProductCode(req.cicGoodCode);
+
     await common_service.getSequence().then(resSeq => {
         NICE_SSIN_ID = convertTime.timeStamp2() + resSeq[0].SEQ;
     })
@@ -48,7 +50,7 @@ exports.postIndi_info = async function (req, res) {
             LOGIN_ID: { val: FULL_NAME },
             NATL_ID: { val: NATIONAL_ID },
             SYS_DTIM: { val: SYS_DTIM },
-            NICE_SSIN_ID: { val: NICE_SSIN_ID },
+            NICE_SSIN_ID: { val:producCode + NICE_SSIN_ID },
             CUST_CD: {val: CUST_CD}
         };
 

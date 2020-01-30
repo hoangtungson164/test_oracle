@@ -6,11 +6,12 @@ const validation = require('../util/validation');
 
 exports.loginOracle = function (req, res) {
   try {
-      var jwt = require('jsonwebtoken');
-      var userid = req.body.username;
-      var user_pwd = req.body.password;
+      let jwt = require('jsonwebtoken');
+      let userid = req.body.username;
+      let user_pwd = req.body.password;
+      let userData;
 
-      var payload = {
+      let payload = {
           userid: userid,
           user_pwd: user_pwd
       };
@@ -19,18 +20,18 @@ exports.loginOracle = function (req, res) {
           console.log("result getUser: ", reslt);
 
           if (!validation.isEmptyStr(reslt)) {
-              var token = jwt.sign(payload, config.secret, {
+              let token = jwt.sign(payload, config.secret, {
                   expiresIn: config.jwtExpiresIn
               });
 
-              var resdata = reslt[0];
+              let resdata = reslt[0];
               console.log("OK password");
-              var userData = new IUser(resdata, true, token);
+              userData = new IUser(resdata, true, token);
 
               return res.status(200).json(userData);
 
           } else {
-              var userData = new IUser({});
+              userData = new IUser({});
               return res.status(400).json(userData);
           }
       });
