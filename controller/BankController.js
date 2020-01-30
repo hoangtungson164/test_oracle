@@ -1,6 +1,8 @@
 const oracledb = require('oracledb');
 const oracleService = require('../service/oracelQuery.service');
-// const optionAutoCommit = { autoCommit: true };
+const scrService = require('../service/scrlog.service');
+
+const optionAutoCommit = { autoCommit: true };
 const convertTime = require('../service/datecreate.service');
 const common_service = require('../service/common.service');
 const nicekey = require('../service/niceSessionKey.service')
@@ -33,26 +35,16 @@ exports.getAllReport = function (req, res) {
 }
 
 exports.postIndi_info = function (req, res) {
-    let FULL_NAME = req.body.FULL_NAME;
-    let NATIONAL_ID = req.body.NATIONAL_ID;
-    let CUST_CD = req.body.CUST_CD;
-    let SYS_DTIM = convertTime.timeStamp();
     let NICE_SSIN_ID = convertTime.timeStamp2();
 
-    // let producCode = nicekey.niceProductCode(req.cicGoodCode);
+    let producCode = nicekey.niceProductCode(req.cicGoodCode);
 
-    // common_service.getSequence().then(resSeq => {
-    //     NICE_SSIN_ID = convertTime.timeStamp2() + resSeq[0].SEQ;
-    // })
+    common_service.getSequence().then(resSeq => {
+        NICE_SSIN_ID = convertTime.timeStamp2() + resSeq[0].SEQ;
+    })
 
-    let sql = "INSERT INTO TB_SCRPLOG (LOGIN_ID, NATL_ID, SYS_DTIM, NICE_SSIN_ID, CUST_CD) VALUES (:LOGIN_ID, :NATL_ID, :SYS_DTIM, :NICE_SSIN_ID, :CUST_CD)"
-        params = {
-            LOGIN_ID: { val: FULL_NAME },
-            NATL_ID: { val: NATIONAL_ID },
-            SYS_DTIM: { val: SYS_DTIM },
-            NICE_SSIN_ID: { val: NICE_SSIN_ID },
-            CUST_CD: {val: CUST_CD}
-        };
+    let sql = "INSERT INTO TB_SCRPLOG (LOGIN_ID, SYS_DTIM, NICE_SSIN_ID) VALUES (:LOGIN_ID, :SYS_DTIM, :NICE_SSIN_ID)"
+    let   params = [req.body.FULL_NAME, convertTime.timeStamp(), producCode + NICE_SSIN_ID]
 
-    oracleService.queryOracel(res, sql, params, optionSelect);
+    scrService.queryOracel(res, sql, params, optionSelect);
 }
