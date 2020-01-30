@@ -44,7 +44,12 @@ exports.postIndi_info = function (req, res) {
     })
 
     let sql = "INSERT INTO TB_SCRPLOG (LOGIN_ID, SYS_DTIM, NICE_SSIN_ID) VALUES (:LOGIN_ID, :SYS_DTIM, :NICE_SSIN_ID)"
-    let   params = [req.body.FULL_NAME, convertTime.timeStamp(), producCode + NICE_SSIN_ID]
+    let sql2 = "INSERT INTO TB_INQLOG (TX_GB_CD, INQ_DTIM, INQ_LOG_ID, AGR_FG, SYS_DTIM, WORK_ID)" +
+    "VALUES (:TX_GB_CD, :INQ_DTIM, :INQ_LOG_ID, :AGR_FG, :SYS_DTIM, :WORK_ID)"
+ 
+    let params = [req.body.FULL_NAME, convertTime.timeStamp(), producCode + NICE_SSIN_ID]
+    let params2 = [req.body.FULL_NAME, convertTime.timeStamp(), NICE_SSIN_ID]
 
     scrService.queryOracel(res, sql, params, optionSelect);
+    scrService.queryOracel(res, sql2, params2, optionSelect);
 }
