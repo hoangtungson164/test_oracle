@@ -406,3 +406,8 @@
 {"message":"::1 - - [30/Jan/2020:02:49:04 +0000] \"POST /indi HTTP/1.1\" 500 3 \"-\" \"PostmanRuntime/7.20.1\"\n","level":"info"}
 {"message":"::1 - - [30/Jan/2020:03:03:10 +0000] \"POST /indi HTTP/1.1\" 500 3 \"-\" \"PostmanRuntime/7.20.1\"\n","level":"info"}
 {"message":"::1 - - [30/Jan/2020:03:03:53 +0000] \"POST /indi HTTP/1.1\" 500 3 \"-\" \"PostmanRuntime/7.20.1\"\n","level":"info"}
+{"message":"::1 - - [30/Jan/2020:07:44:54 +0000] \"POST /indi HTTP/1.1\" 500 3 \"-\" \"PostmanRuntime/7.20.1\"\n","level":"info"}
+{"message":"::1 - - [30/Jan/2020:07:45:50 +0000] \"POST /indi HTTP/1.1\" 500 3 \"-\" \"PostmanRuntime/7.20.1\"\n","level":"info"}
+{"message":"::1 - - [30/Jan/2020:07:46:29 +0000] \"POST /indi HTTP/1.1\" 500 3 \"-\" \"PostmanRuntime/7.20.1\"\n","level":"info"}
+{"message":"::1 - - [30/Jan/2020:07:46:44 +0000] \"POST /indi HTTP/1.1\" 500 31 \"-\" \"PostmanRuntime/7.20.1\"\n","level":"info"}
+{"message":"::1 - - [30/Jan/2020:07:50:47 +0000] \"GET /banks/99/report HTTP/1.1\" 500 28 \"-\" \"PostmanRuntime/7.20.1\"\n","level":"info"}

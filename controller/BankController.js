@@ -32,7 +32,7 @@ exports.getAllReport = function (req, res) {
     oracleService.queryOracel(res, sql, params, optionSelect);
 }
 
-exports.postIndi_info = async function (req, res) {
+exports.postIndi_info = function (req, res) {
     let FULL_NAME = req.body.FULL_NAME;
     let NATIONAL_ID = req.body.NATIONAL_ID;
     let CUST_CD = req.body.CUST_CD;
@@ -41,7 +41,7 @@ exports.postIndi_info = async function (req, res) {
 
     let producCode = nicekey.niceProductCode(req.cicGoodCode);
 
-    await common_service.getSequence().then(resSeq => {
+    common_service.getSequence().then(resSeq => {
         NICE_SSIN_ID = convertTime.timeStamp2() + resSeq[0].SEQ;
     })
 
