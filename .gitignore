@@ -1,5 +1,6 @@
 #DATABASE
 .env
+/logs
 
 # compiled output
 /dist
