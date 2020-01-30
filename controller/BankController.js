@@ -1,8 +1,5 @@
 const oracledb = require('oracledb');
 const oracleService = require('../service/oracelQuery.service');
-const optionAutoCommit = { autoCommit: true };
-const convertTime = require('../service/datecreate.service');
-const common_service = require('../service/common.service');
 
 var optionSelect = { outFormat: oracledb.OUT_FORMAT_OBJECT };
 var params = {}
@@ -32,25 +29,3 @@ exports.getAllReport = function (req, res) {
     oracleService.queryOracel(res, sql, params, optionSelect);
 }
 
-exports.postIndi_info = async function (req, res) {
-    let FULL_NAME = req.body.FULL_NAME;
-    let NATIONAL_ID = req.body.NATIONAL_ID;
-    let CUST_CD = req.body.CUST_CD;
-    let SYS_DTIM = convertTime.timeStamp();
-    let NICE_SSIN_ID;
-
-    await common_service.getSequence().then(resSeq => {
-        NICE_SSIN_ID = convertTime.timeStamp2() + resSeq[0].SEQ;
-    })
-
-    let sql = "INSERT INTO TB_SCRPLOG (LOGIN_ID, NATL_ID, SYS_DTIM, NICE_SSIN_ID, CUST_CD) VALUES (:LOGIN_ID, :NATL_ID, :SYS_DTIM, :NICE_SSIN_ID, :CUST_CD)"
-        params = {
-            LOGIN_ID: { val: FULL_NAME },
-            NATL_ID: { val: NATIONAL_ID },
-            SYS_DTIM: { val: SYS_DTIM },
-            NICE_SSIN_ID: { val: NICE_SSIN_ID },
-            CUST_CD: {val: CUST_CD}
-        };
-
-    oracleService.queryOracel(res, sql, params, optionAutoCommit);
-}
