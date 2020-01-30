@@ -10,13 +10,11 @@ async function queryOracel(res, sql, param, option) {
             sql, param, option);
             if (result.rows !== undefined) {
                 res.status(200).send(result.rows)
-            } else if(result.rows.length < 1) {
-                res,status(204).send("Nothing to get")
             } else {
                 res.status(200).send(result);
             }
     } catch (err) {
-        res.status(500).send("err");
+        res.status(500).send("Problem with server");
     } finally {
         if (connection) {
             try {

@@ -10,7 +10,6 @@ var AuthController = require('../controller/AuthController')
 router.get('/banks', BankController.getAllBank);
 router.get('/banks/:id/consent', BankController.getAllConsensus);
 router.get('/banks/:id/report', BankController.getAllReport);
-router.post('/indi', BankController.postIndi_info);
 router.post('/loginOracle', AuthController.loginOracle);
 
 module.exports = router
