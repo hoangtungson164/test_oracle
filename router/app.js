@@ -8,6 +8,7 @@ var app = express();
 var cors = require('cors')
 var router = require('../router/router.js')
 
+
 app.use(cors());
 app.use(morgan('combined', { stream: winston.stream }));
 app.use(express.json());

@@ -472,3 +472,6 @@
 {"message":"::1 - - [30/Jan/2020:09:20:56 +0000] \"GET /banks/99/consent HTTP/1.1\" 500 28 \"-\" \"PostmanRuntime/7.20.1\"\n","level":"info"}
 {"message":"::1 - - [30/Jan/2020:09:27:00 +0000] \"POST /indi HTTP/1.1\" 200 - \"-\" \"PostmanRuntime/7.20.1\"\n","level":"info"}
 {"message":"::1 - - [30/Jan/2020:09:27:02 +0000] \"GET /banks/99/consent HTTP/1.1\" 200 248 \"-\" \"PostmanRuntime/7.20.1\"\n","level":"info"}
+{"message":"::1 - - [31/Jan/2020:03:33:33 +0000] \"GET /banks/99/report HTTP/1.1\" 304 - \"http://localhost:4200/banks/99/sending\" \"Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1\"\n","level":"info"}
+{"message":"::1 - - [31/Jan/2020:03:34:26 +0000] \"GET /banks/99/consent HTTP/1.1\" 304 - \"http://localhost:4200/banks/99/consensus\" \"Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1\"\n","level":"info"}
+{"message":"::1 - - [31/Jan/2020:03:34:39 +0000] \"POST /loginOracle HTTP/1.1\" 200 234 \"http://localhost:4200/banks/99/login\" \"Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1\"\n","level":"info"}
