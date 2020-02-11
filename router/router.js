@@ -5,11 +5,11 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 var BankController = require('../controller/BankController')
-var AuthController = require('../controller/AuthController')
+var UserController = require('../controller/UserController')
 
 router.get('/banks', BankController.getAllBank);
 router.get('/banks/:id/consent', BankController.getAllConsensus);
 router.get('/banks/:id/report', BankController.getAllReport);
-router.post('/loginOracle', AuthController.loginOracle);
+router.post('/insertUser', UserController.insertUser);
 
 module.exports = router

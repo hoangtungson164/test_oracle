@@ -1,5 +1,5 @@
 #DATABASE
-.env
+# .env
 .log
 
 # compiled output

@@ -1,3 +1,4 @@
+require('dotenv').config();
 module.exports = {
     user          : "admin",
   
@@ -6,7 +7,7 @@ module.exports = {
     // string (not recommended), or it could be prompted for.
     // Alternatively use External Authentication so that no password is
     // needed.
-    password      : "infoplus",
+    password      : process.env.PASSWORD,
   
     // For information on connection strings see:
     // https://oracle.github.io/node-oracledb/doc/api.html#connectionstrings

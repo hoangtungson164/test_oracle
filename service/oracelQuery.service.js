@@ -14,6 +14,7 @@ async function queryOracel(res, sql, param, option) {
                 res.status(200).send(result);
             }
     } catch (err) {
+        console.log(err);
         res.status(500).send("Problem with server");
     } finally {
         if (connection) {
@@ -26,4 +27,4 @@ async function queryOracel(res, sql, param, option) {
     }
 }
 
-module.exports.queryOracel = queryOracel;
+module.exports = queryOracel;
