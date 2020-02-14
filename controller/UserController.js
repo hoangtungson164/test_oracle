@@ -4,7 +4,7 @@ const dateUtil = require('../util/dateConvert.util');
 
 exports.insertUser = async function (req, res) {
     let username = req.body.username;
-    let password = bcrypt.hashSync(req.body.password);
+    let password = Buffer.from((dateUtil.timeStamp() + req.body.password).toString('base64'));
     let bankCode = req.body.bankCode;
     let sysdate = dateUtil.timeStamp();
     console.log('something');

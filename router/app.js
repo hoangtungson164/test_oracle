@@ -1,12 +1,13 @@
-var winston = require('../config/winston');
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var morgan = require('morgan');
-var app = express();
-var cors = require('cors')
-var router = require('../router/router.js')
+const winston = require('../config/winston');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
+const app = express();
+const cors = require('cors')
+const router = require('../router/router.js')
+
 
 app.use(cors());
 app.use(morgan('combined', { stream: winston.stream }));
@@ -32,5 +33,6 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
 
 module.exports = app;
