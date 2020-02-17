@@ -7,7 +7,8 @@ const morgan = require('morgan');
 const app = express();
 const cors = require('cors')
 const router = require('../router/router.js')
-
+cors({credentials: true, origin: true})
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 app.use(cors());
 app.use(morgan('combined', { stream: winston.stream }));
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', router);
+
 
 app.use(function (req, res, next) {
     next(createError(404));
