@@ -5,12 +5,12 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const app = express();
-const cors = require('cors')
-const router = require('../router/router.js')
-cors({credentials: true, origin: true})
+const cors = require('cors');
+const router = require('../router/router.js');
+cors({credentials: true, origin: true});
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
-app.use(cors());
+app.use(cors({origin: 'https://localhost:4200'}));
 app.use(morgan('combined', { stream: winston.stream }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

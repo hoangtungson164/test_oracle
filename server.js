@@ -13,7 +13,7 @@ const credentials = { key: privateKey, cert: certificate };
 const httpsServer = https.createServer(credentials, app);
 
 
-var server = httpsServer.listen(port, function () {
+var server = app.listen(port, function () {
 	console.log('Server running at port', port);
 });
 
