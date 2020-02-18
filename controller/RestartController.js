@@ -1,16 +1,14 @@
 const { exec } = require("child_process");
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
+
+async function ls() {
+}
+
 
 exports.restartCMD = function (){
-    // exec("ls -la", (error, stdout, stderr) => {
-    // if (error) {
-    //     console.log(`error: ${error.message}`);
-    //     return;
-    // }
-    // if (stderr) {
-    //     console.log(`stderr: ${stderr}`);
-    //     return;
-    // }
-    // console.log(`stdout: ${stdout}`);
-    // })
+    const { stdout, stderr } = await exec('npm start');
     console.log('restart');
-};
+    console.log('stdout:', stdout);
+    console.log('stderr:', stderr);
+  };
