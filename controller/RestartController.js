@@ -2,7 +2,7 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
 exports.restartCMD = async function (){
-    const { stdout, stderr } = await exec('ps aux | grep node');
+    const { stdout, stderr } = await exec('taskkill /F /IM');
     console.log('restart 1');
     console.log('stdout:', stdout);
     console.log('stderr:', stderr);
