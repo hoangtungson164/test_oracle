@@ -10,6 +10,7 @@ exports.restartCMD = async function (){
     // console.log('stderr:', stderr);
     const { stdout2, stderr2 } = await exec('git pull');
     console.log('pull and nodemon automatically run');
+    console.log('actual test');
     console.log('stdout2:', stdout2);
     console.log('stderr2:', stderr2);
   };
